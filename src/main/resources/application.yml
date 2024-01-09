@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resume_pro
+    username: postgres
+    password: abcabc1234
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 100
+      max-lifetime: 60000
+      minimum-idle: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
