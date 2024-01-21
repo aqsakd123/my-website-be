@@ -37,8 +37,8 @@ public class AuthController {
     }
 
     // TODO: Test only, delete when deploy
-    @PostMapping("/auth/listUser")
-    public ResponseEntity<List<User>> listUser(@RequestBody @Valid CredenticalsDTO credentialsDto) {
+    @PostMapping("/api/listUser")
+    public ResponseEntity<List<User>> listUser() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
@@ -48,10 +48,8 @@ public class AuthController {
         return ResponseEntity.ok(createdUser);
     }
 
-    @PostMapping("/refresh")
+    @PostMapping("/auth/refresh")
     public ResponseEntity<UserDTO> refresh(@RequestBody @Valid UserDTO userDto) {
-        // ToDo: Check validation refresh token passed in userDTO
-        // if refresh token also expired, pass "REFRESH_EXPIRED" so frontend know to logout
         userDto.setToken(userAuthenticationProvider.createToken(userDto.getUsername(), userDto.getRoles()));
         return ResponseEntity.ok(userDto);
     }

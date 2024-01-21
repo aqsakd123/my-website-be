@@ -1,5 +1,6 @@
 package com.example.my_website_pro.Config;
 
+import com.example.my_website_pro.Entity.DTO.UserDTO;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +12,8 @@ public class CurrentUserAuditor implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         Authentication authen = SecurityContextHolder.getContext().getAuthentication();
         if (authen != null && authen.isAuthenticated()){
-            return Optional.of(authen.getName());
+            UserDTO user = (UserDTO) authen.getPrincipal();
+            return Optional.of(user.getUsername());
         }
         return Optional.empty();
     }

@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/api/public/**").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 );
         return http.build();
     }
