@@ -1,0 +1,26 @@
+type Query {
+    # Memo
+    getDetailMemo(id: ID!): Memo
+    getListMemo(specification: MemoSpecificationInput): [Memo]
+    getPageMemo(specification: MemoSpecificationInput): [Memo]
+    # Tag
+    getDetailTag(id: ID!): Tag
+    getListTag(specification: TagSpecificationInput): [Tag]
+    getPageTag(specification: TagSpecificationInput): [Tag]
+    countTagsByFilter(specification: TagSpecificationInput): Int
+}
+
+type Mutation {
+    # Memo
+    insertMemo(memo: MemoInput): String
+    updateMemo(id: ID!, memo: MemoInput): String
+    deleteMemo(id: ID!): String
+    changeStatusMemo(id: ID!, status: Int): String
+
+    # Tags
+    insertTag(tag: TagInput): String
+    updateTag(id: ID!, tag: TagInput): String
+    deleteTag(id: ID!): String
+    changeStatusTag(id: ID!, status: Int): String
+    deleteAllTagsByFilter(specification: TagSpecificationInput): String
+}

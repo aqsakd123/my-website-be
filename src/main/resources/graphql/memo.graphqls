@@ -1,0 +1,41 @@
+type Memo {
+    id: ID!
+    name: String
+    color: String
+    type: String
+    status: Int
+    position: Float
+    createdBy: String
+    createdAt: Int
+    tabCardList: [TabCard]
+}
+
+type TabCard {
+    id: ID!
+    tabName: String!
+    tabContent: String
+    position: Int
+}
+
+input MemoInput {
+    id: String
+    name: String
+    color: String
+    type: String
+    status: Int
+    position: Float
+    tabCardList: [TabCardInput]
+}
+
+input TabCardInput {
+    id: String
+    tabName: String!
+    tabContent: String
+    position: Int
+}
+
+input MemoSpecificationInput {
+    name: String
+    type: String
+    status: Int
+}
