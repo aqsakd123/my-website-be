@@ -1,0 +1,15 @@
+type Award {
+    id: ID!
+    name: String
+    description: String
+    awardPoint: Int
+    color: String
+}
+
+input AwardInput {
+    id: String
+    name: String
+    description: String
+    awardPoint: Int
+    color: String
+}

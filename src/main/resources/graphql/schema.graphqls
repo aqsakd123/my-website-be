@@ -8,6 +8,9 @@ type Query {
     getListTag(specification: TagSpecificationInput): [Tag]
     getPageTag(specification: TagSpecificationInput): [Tag]
     countTagsByFilter(specification: TagSpecificationInput): Int
+    # Award Management
+    getDetailAward(id: ID!): Award
+    getListAward: [Award]
 }
 
 type Mutation {
@@ -23,4 +26,9 @@ type Mutation {
     deleteTag(id: ID!): String
     changeStatusTag(id: ID!, status: Int): String
     deleteAllTagsByFilter(specification: TagSpecificationInput): String
+
+    # Award Management
+    insertAward(award: AwardInput): String
+    updateAward(id: ID!, award: AwardInput): String
+    deleteAward(id: ID!): String
 }

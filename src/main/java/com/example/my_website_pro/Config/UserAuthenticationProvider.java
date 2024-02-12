@@ -43,7 +43,7 @@ public class UserAuthenticationProvider {
         claims.put("role", role);
 
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 10*1000); // 1 hour
+        Date expiration = new Date(now.getTime() + 60*60*1000); // 1 hour
 
         return Jwts.builder()
                 .setClaims(claims)
