@@ -11,6 +11,11 @@ type Query {
     # Award Management
     getDetailAward(id: ID!): Award
     getListAward: [Award]
+    # Finance Management
+    getDetailFinance(id: ID!): Finance
+    getListFinance: [Finance]
+    # Transaction
+    getDetailTransaction(id: ID!): Transaction
 }
 
 type Mutation {
@@ -31,4 +36,15 @@ type Mutation {
     insertAward(award: AwardInput): String
     updateAward(id: ID!, award: AwardInput): String
     deleteAward(id: ID!): String
+
+    # Finance Management
+    insertFinance(finance: FinanceInput): String
+    updateFinance(id: ID!, finance: FinanceInput): String
+    deleteFinance(id: ID!): String
+
+    # Transaction
+    insertTransaction(transaction: TransactionInput): String
+    updateTransaction(id: ID!, transaction: TransactionInput): String
+    deleteTransaction(id: ID!): String
+
 }

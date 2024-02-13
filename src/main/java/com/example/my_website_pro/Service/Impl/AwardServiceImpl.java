@@ -3,10 +3,12 @@ package com.example.my_website_pro.Service.Impl;
 import com.example.my_website_pro.Config.AppException;
 import com.example.my_website_pro.Entity.DTO.AwardDTO;
 
+import com.example.my_website_pro.Entity.DTO.RequestDTO.TagSpecificationDTO;
 import com.example.my_website_pro.Entity.DTO.UserDTO;
 import com.example.my_website_pro.Entity.Award;
 import com.example.my_website_pro.Entity.Mapper.AwardMapper;
 
+import com.example.my_website_pro.Entity.Tag;
 import com.example.my_website_pro.Repository.AwardRepository;
 import com.example.my_website_pro.Service.AwardService;
 import jakarta.persistence.criteria.Predicate;
@@ -55,7 +57,7 @@ public class AwardServiceImpl implements AwardService {
         value.setAwardPoint(award.getAwardPoint());
         value.setColor(award.getColor());
 
-        return awardRepository.save(awardMapper.toEntity(award));
+        return awardRepository.save(value);
     }
     
     @Override
@@ -66,8 +68,20 @@ public class AwardServiceImpl implements AwardService {
     
     @Override
     public List<AwardDTO> getListAward() {
-        
-        return awardRepository.findAll().stream().map(awardMapper::toDTO).toList();
+        Specification<Award> spec = getSpecification();
+        return awardRepository.findAll(spec).stream().map(awardMapper::toDTO).toList();
     }
-    
+
+    private Specification<Award> getSpecification() {
+        return (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Authentication authen = SecurityContextHolder.getContext().getAuthentication();
+            UserDTO user = (UserDTO) authen.getPrincipal();
+
+            predicates.add(criteriaBuilder.equal(root.get("createdBy"), user.getUsername()));
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+
 }

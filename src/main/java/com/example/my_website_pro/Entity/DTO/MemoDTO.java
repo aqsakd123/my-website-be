@@ -2,6 +2,7 @@ package com.example.my_website_pro.Entity.DTO;
 
 import com.example.my_website_pro.Entity.Common.AuthorityDTO;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
 public class MemoDTO extends AuthorityDTO {
 

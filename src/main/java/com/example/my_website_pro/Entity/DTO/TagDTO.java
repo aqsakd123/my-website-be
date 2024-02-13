@@ -2,11 +2,12 @@ package com.example.my_website_pro.Entity.DTO;
 
 import com.example.my_website_pro.Entity.Common.AuthorityDTO;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
 public class TagDTO extends AuthorityDTO {
 
