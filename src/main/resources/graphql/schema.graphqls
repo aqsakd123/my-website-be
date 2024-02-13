@@ -1,3 +1,6 @@
+scalar BigDecimal
+scalar LocalDateTime
+
 type Query {
     # Memo
     getDetailMemo(id: ID!): Memo
@@ -16,6 +19,7 @@ type Query {
     getListFinance: [Finance]
     # Transaction
     getDetailTransaction(id: ID!): Transaction
+    getListTransaction(specification: TransactionSpecificationInput): [Transaction]
 }
 
 type Mutation {
