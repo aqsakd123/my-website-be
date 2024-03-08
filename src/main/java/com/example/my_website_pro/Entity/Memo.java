@@ -40,7 +40,6 @@ public class Memo extends Authority {
     @OneToMany(targetEntity = TabCard.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "MEMO_ID", referencedColumnName = "id")
-    @OrderBy("position asc")
     private List<TabCard> tabCardList;
 
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -80,16 +81,18 @@ public class MemoServiceImpl implements MemoService {
     @Override
     public List<MemoDTO> getListMemo(MemoSpecificationDTO specification) {
         Specification<Memo> spec = getSpecification(specification);
-        return memoRepository.findAll(spec).stream().map(memoMapper::toDTO).toList();
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        return memoRepository.findAll(spec, sort).stream().map(memoMapper::toDTO).toList();
     }
 
     public Double getLargestPosition() {
         MemoSpecificationDTO specification = new MemoSpecificationDTO();
-        Specification<Memo> spec = getSpecification(specification).and(withLargestPosition());
-        Optional<Memo> memoOptional = memoRepository.findOne(spec);
+        Specification<Memo> spec = getSpecification(specification);
+        Sort sort = Sort.by(Sort.Direction.DESC, "position");
+        Page<Memo> page = memoRepository.findAll(spec, PageRequest.of(0, 1, sort));
         Double pos = null;
-        if (memoOptional.isPresent()) {
-            pos = memoOptional.get().getPosition();
+        if (page.hasContent()) {
+            pos = page.getContent().get(0).getPosition();
         }
         if (pos != null) {
             return pos + 1.0;
@@ -126,14 +129,6 @@ public class MemoServiceImpl implements MemoService {
             memo.setStatus(0);
             memoRepository.save(memo);
         }
-    }
-
-    public static Specification<Memo> withLargestPosition() {
-        return (root, query, criteriaBuilder) -> {
-            query.orderBy(criteriaBuilder.desc(root.get("position")));
-            query.distinct(true);
-            return criteriaBuilder.equal(root.get("position"), root.get("position"));
-        };
     }
 
     private Specification<Memo> getSpecification(MemoSpecificationDTO specification) {
