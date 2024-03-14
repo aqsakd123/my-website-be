@@ -39,6 +39,8 @@ public class SubTask extends Authority {
 
     private LocalDateTime endDate;
 
+    private Integer displayOrder;
+
     private Integer estimate;
 
     @ManyToOne(fetch = FetchType.LAZY)

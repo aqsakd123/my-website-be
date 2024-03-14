@@ -37,7 +37,9 @@ public class SubTaskDTO extends AuthorityDTO {
     private LocalDateTime startDate;
     
     private LocalDateTime endDate;
-    
+
+    private Integer displayOrder;
+
     private Integer estimate;
     
     private TaskListDTO parentTaskList;

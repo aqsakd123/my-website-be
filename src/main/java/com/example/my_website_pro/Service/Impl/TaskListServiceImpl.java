@@ -79,7 +79,6 @@ public class TaskListServiceImpl implements TaskListService {
 
             if ((!Objects.isNull(specification)) && StringUtils.hasLength(specification.getWorkspaceId())) {
                 predicates.add(criteriaBuilder.equal(root.get("workspace").get("id"), specification.getWorkspaceId()));
-                System.out.println("XXYYXX");
             } else {
                 predicates.add(criteriaBuilder.isNull(root.get("workspace").get("id")));
             }
