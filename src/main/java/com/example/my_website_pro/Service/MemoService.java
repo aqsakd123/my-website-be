@@ -19,7 +19,7 @@ public interface MemoService {
 
     Memo deleteMemo(String id);
 
-    List<MemoDTO> getListMemo(MemoSpecificationDTO specification);
+    List<Memo> getListMemo(MemoSpecificationDTO specification);
 
     Page<MemoDTO> getPageMemo(MemoSpecificationDTO specification);
 

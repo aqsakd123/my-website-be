@@ -5,7 +5,9 @@ import com.example.my_website_pro.Entity.DTO.MemoDTO;
 import com.example.my_website_pro.Entity.DTO.RequestDTO.MemoSpecificationDTO;
 import com.example.my_website_pro.Entity.DTO.UserDTO;
 import com.example.my_website_pro.Entity.Mapper.MemoMapper;
+import com.example.my_website_pro.Entity.Mapper.QuesAndAnsMapper;
 import com.example.my_website_pro.Entity.Mapper.TabMapper;
+import com.example.my_website_pro.Entity.Mapper.TagMapper;
 import com.example.my_website_pro.Entity.Memo;
 import com.example.my_website_pro.Repository.MemoRepository;
 import com.example.my_website_pro.Service.MemoService;
@@ -26,6 +28,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,6 +39,9 @@ public class MemoServiceImpl implements MemoService {
 
     private final MemoMapper memoMapper = Mappers.getMapper(MemoMapper.class);
     private final TabMapper tabMapper = Mappers.getMapper(TabMapper.class);
+
+    private final QuesAndAnsMapper qaMapper = Mappers.getMapper(QuesAndAnsMapper.class);
+    private final TagMapper tagMapper = Mappers.getMapper(TagMapper.class);
 
     @Override
     public MemoDTO getDetailMemo(String id) {
@@ -57,10 +63,14 @@ public class MemoServiceImpl implements MemoService {
     @Override
     public Memo updateMemo(String id, MemoDTO memo) {
         Memo value = memoRepository.findById(id).orElseThrow(() -> new AppException("UNKNOWN_ID", HttpStatus.UNAUTHORIZED));
+
         value.setName(memo.getName());
         value.setStatus(memo.getStatus());
-        value.setTabCardList(tabMapper.toListEntities(memo.getTabCardList()));
         value.setColor(memo.getColor());
+        value.setTabCardList(tabMapper.toListEntities(memo.getTabCardList()));
+        value.setQaList(qaMapper.toListEntities(memo.getQaList()));
+        value.setTags(tagMapper.toListEntities(memo.getTags()));
+
         return memoRepository.save(value);
     }
 
@@ -79,10 +89,10 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
-    public List<MemoDTO> getListMemo(MemoSpecificationDTO specification) {
+    public List<Memo> getListMemo(MemoSpecificationDTO specification) {
         Specification<Memo> spec = getSpecification(specification);
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        return memoRepository.findAll(spec, sort).stream().map(memoMapper::toDTO).toList();
+        return memoRepository.findAll(spec, sort).stream().toList();
     }
 
     public Double getLargestPosition() {
@@ -148,6 +158,9 @@ public class MemoServiceImpl implements MemoService {
             }
             if (StringUtils.hasLength(specification.getName())) {
                 predicates.add(criteriaBuilder.like(root.get("name"), "%" + specification.getName() + "%"));
+            }
+            if (Objects.nonNull(specification.getCategory()) && StringUtils.hasLength(specification.getCategory().getId())) {
+                predicates.add(criteriaBuilder.equal(root.get("category").get("id"), specification.getCategory().getId()));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };

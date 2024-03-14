@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Data
 @Entity
-@Table(name = "TASK_LIST")
-public class TaskList extends Authority {
+@Table(name = "WORK_SPACE")
+public class WorkSpace extends Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,22 +30,19 @@ public class TaskList extends Authority {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(length = 500)
+    @Column(nullable = false, length = 3000)
     private String description;
 
-    private String icon;
+    @Column(nullable = false)
+    private LocalDateTime startDate;
 
-    private String priority;
+    private LocalDateTime endDate;
 
-    @OneToMany(targetEntity = SubTask.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @OneToMany(targetEntity = TaskList.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     @BatchSize(size = 100)
-    @JoinColumn(name = "TASK_LIST_ID", referencedColumnName = "id")
-    @OrderBy("is_finish asc, created_at desc")
-    private List<SubTask> subTasks;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WORKSPACE_ID")
-    private WorkSpace workspace;
+    @JoinColumn(name = "WORK_SPACE_ID", referencedColumnName = "id")
+    @OrderBy("created_at asc")
+    private List<TaskList> taskList;
 
 }

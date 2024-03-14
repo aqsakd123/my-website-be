@@ -1,5 +1,7 @@
 package com.example.my_website_pro.Controller.GraphqlResolver;
 
+import com.example.my_website_pro.Entity.DTO.RequestDTO.SubTaskSpecificationDTO;
+import com.example.my_website_pro.Entity.DTO.RequestDTO.TaskListSpecificationDTO;
 import com.example.my_website_pro.Entity.DTO.TaskListDTO;
 
 import com.example.my_website_pro.Entity.TaskList;
@@ -24,8 +26,8 @@ public class TaskListManagementResolver {
     private TaskListService taskListService;
 
     @QueryMapping
-    public List<TaskList> getListTaskList() {
-        return taskListService.getListTaskList();}
+    public List<TaskList> getListTaskList(@Valid @Argument(name = "specification") TaskListSpecificationDTO specification) {
+        return taskListService.getListTaskList(specification);}
 
     @MutationMapping
     public String insertTaskList(@Valid @Argument(name = "taskList") TaskListDTO taskListInput) {

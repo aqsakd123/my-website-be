@@ -5,7 +5,7 @@ type TaskList {
     icon: String
     priority: String
     subTasks: [SubTask]
-    
+    workspace: WorkSpace
 }
 
 input TaskListInput {
@@ -15,5 +15,9 @@ input TaskListInput {
     icon: String
     priority: String
     subTasks: [SubTaskInput]
-    
+    workspace: WorkSpaceInput
+}
+
+input TaskListSpecificationInput {
+    workspaceId: String
 }

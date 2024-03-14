@@ -1,6 +1,7 @@
 package com.example.my_website_pro.Service.Impl;
 
 import com.example.my_website_pro.Config.AppException;
+import com.example.my_website_pro.Entity.DTO.RequestDTO.TaskListSpecificationDTO;
 import com.example.my_website_pro.Entity.DTO.TaskListDTO;
 
 import com.example.my_website_pro.Entity.DTO.UserDTO;
@@ -28,6 +29,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -38,11 +40,9 @@ public class TaskListServiceImpl implements TaskListService {
 
     private final TaskListMapper taskListMapper = Mappers.getMapper(TaskListMapper.class);
 
-    
     @Override
     public TaskList insertTaskList(TaskListDTO taskList) {
         return taskListRepository.save(taskListMapper.toEntity(taskList));
-
     }
     
     @Override
@@ -53,7 +53,6 @@ public class TaskListServiceImpl implements TaskListService {
         value.setIcon(taskList.getIcon());
         value.setPriority(taskList.getPriority());
         return taskListRepository.save(value);
-
     }
     
     @Override
@@ -64,19 +63,26 @@ public class TaskListServiceImpl implements TaskListService {
     }
     
     @Override
-    public List<TaskList> getListTaskList() {
-        Specification<TaskList> spec = getSpecification();
+    public List<TaskList> getListTaskList(TaskListSpecificationDTO specification) {
+        Specification<TaskList> spec = getSpecification(specification);
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         return taskListRepository.findAll(spec , sort);
 
     }
     
-    private Specification<TaskList> getSpecification() {
+    private Specification<TaskList> getSpecification(TaskListSpecificationDTO specification) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             Authentication authen = SecurityContextHolder.getContext().getAuthentication();
             UserDTO user = (UserDTO) authen.getPrincipal();
             predicates.add(criteriaBuilder.equal(root.get("createdBy"), user.getUsername()));
+
+            if ((!Objects.isNull(specification)) && StringUtils.hasLength(specification.getWorkspaceId())) {
+                predicates.add(criteriaBuilder.equal(root.get("workspace").get("id"), specification.getWorkspaceId()));
+                System.out.println("XXYYXX");
+            } else {
+                predicates.add(criteriaBuilder.isNull(root.get("workspace").get("id")));
+            }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };

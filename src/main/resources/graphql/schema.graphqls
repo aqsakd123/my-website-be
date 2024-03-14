@@ -26,10 +26,13 @@ type Query {
     getListTransaction(specification: TransactionSpecificationInput): [Transaction]
 
     # Task List
-    getListTaskList: [TaskList]
+    getListTaskList(specification: TaskListSpecificationInput): [TaskList]
 
-    #SubTask
+    # SubTask
     getListSubTask(specification: SubTaskSpecificationInput): [SubTask]
+
+    # Workspace
+    getListWorkSpace: [WorkSpace]
 
 }
 
@@ -77,5 +80,15 @@ type Mutation {
     updateSubTask(id: ID!, subTask: SubTaskInput): String
     deleteSubTask(id: ID!): String
     changeStatusSubTask(id: String!, status: Boolean!): String
+
+    # QuesAndAns
+    insertQuesAndAns(quesAndAns: QuesAndAnsInput): String
+    updateQuesAndAns(id: ID!, quesAndAns: QuesAndAnsInput): String
+    deleteQuesAndAns(id: ID!): String
+
+    # Workspace
+    insertWorkSpace(workSpace: WorkSpaceInput): String
+    updateWorkSpace(id: ID!, workSpace: WorkSpaceInput): String
+    deleteWorkSpace(id: ID!): String
 
 }

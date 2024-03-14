@@ -1,5 +1,6 @@
 package com.example.my_website_pro.Entity.DTO;
 
+import com.example.my_website_pro.Entity.Category;
 import com.example.my_website_pro.Entity.Common.AuthorityDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -28,5 +29,11 @@ public class MemoDTO extends AuthorityDTO {
     private Double position;
 
     private List<TabCardDTO> tabCardList;
+
+    private List<TagDTO> tags;
+
+    private List<QuesAndAnsDTO> qaList;
+
+    private Category category;
 
 }

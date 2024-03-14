@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @SuperBuilder
 @Data
-public class TaskListDTO extends AuthorityDTO {
+public class WorkSpaceDTO extends AuthorityDTO {
 
     private String id;
     
@@ -29,15 +29,15 @@ public class TaskListDTO extends AuthorityDTO {
     @Size(max=50)
     private String name;
     
-    @Size(max=500)
+    @NotNull
+    @Size(max=3000)
     private String description;
     
-    private String icon;
+    @NotNull
+    private LocalDateTime startDate;
     
-    private String priority;
+    private LocalDateTime endDate;
     
-    private List<SubTaskDTO> subTasks;
-
-    private WorkSpaceDTO workspace;
-
+    private List<TaskListDTO> taskList;
+    
 }

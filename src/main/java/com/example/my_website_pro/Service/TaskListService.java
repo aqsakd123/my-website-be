@@ -1,5 +1,6 @@
 package com.example.my_website_pro.Service;
 
+import com.example.my_website_pro.Entity.DTO.RequestDTO.TaskListSpecificationDTO;
 import com.example.my_website_pro.Entity.DTO.TaskListDTO;
 import com.example.my_website_pro.Entity.TaskList;
 import org.springframework.data.domain.Page;
@@ -13,5 +14,5 @@ public interface TaskListService {
 
     String deleteTaskList(String id);
 
-    List<TaskList> getListTaskList();
+    List<TaskList> getListTaskList(TaskListSpecificationDTO specification);
 }

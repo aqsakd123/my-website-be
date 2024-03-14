@@ -2,6 +2,7 @@ package com.example.my_website_pro.Controller;
 
 import com.example.my_website_pro.Entity.DTO.MemoDTO;
 import com.example.my_website_pro.Entity.DTO.RequestDTO.MemoSpecificationDTO;
+import com.example.my_website_pro.Entity.Memo;
 import com.example.my_website_pro.Service.MemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public class MemoController {
     }
 
     @PostMapping("/list")
-    public List<MemoDTO> getListMemo(@RequestBody MemoSpecificationDTO specification) {
+    public List<Memo> getListMemo(@RequestBody MemoSpecificationDTO specification) {
         return memoService.getListMemo(specification);
     }
 

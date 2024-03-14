@@ -38,13 +38,6 @@ public class Category extends Authority {
 
     private Boolean isDeleted;
 
-    @OneToMany(targetEntity = Tag.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @Fetch(FetchMode.JOIN)
-    @BatchSize(size = 100)
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "id")
-    @OrderBy("created_at asc")
-    private List<Tag> tag;
-
     @OneToMany(targetEntity = Category.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @Fetch(FetchMode.JOIN)
     @BatchSize(size = 100)
@@ -56,5 +49,11 @@ public class Category extends Authority {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category parentCategory;
+
+    @OneToMany(targetEntity = Memo.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
+    @BatchSize(size = 100)
+    @JoinColumn(name = "MEMO_ID", referencedColumnName = "id")
+    private List<Memo> memoList;
 
 }

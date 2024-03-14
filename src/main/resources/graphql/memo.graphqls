@@ -8,6 +8,8 @@ type Memo {
     createdBy: String
     createdAt: Int
     tabCardList: [TabCard]
+    tags: [Tag]
+    qaList: [QuesAndAns]
 }
 
 type TabCard {
@@ -24,7 +26,10 @@ input MemoInput {
     type: String
     status: Int
     position: Float
+    category: CategoryInput
     tabCardList: [TabCardInput]
+    tags: [TagInput]
+    qaList: [QuesAndAnsInput]
 }
 
 input TabCardInput {
@@ -34,8 +39,22 @@ input TabCardInput {
     position: Int
 }
 
+type QuesAndAns {
+    id: ID!
+    question: String
+    answer: String
+}
+
+input QuesAndAnsInput {
+    id: String
+    question: String
+    answer: String
+    memo: MemoInput
+}
+
 input MemoSpecificationInput {
     name: String
     type: String
     status: Int
+    category: CategoryInput
 }
