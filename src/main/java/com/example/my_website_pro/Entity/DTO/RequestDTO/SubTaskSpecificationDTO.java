@@ -16,4 +16,8 @@ public class SubTaskSpecificationDTO  {
 
     private String parentTaskListId;
 
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
+
 }

@@ -1,0 +1,35 @@
+type Countdown {
+    id: ID!
+    name: String
+    description: String
+    priority: String
+    isFinish: Boolean
+    endDate: LocalDateTime
+    selectionType: String
+    innerSubTasks: [SubTask]
+    tags: [Tag]
+    workspaces: WorkSpace
+    taskLists: TaskList
+    subTask: SubTask
+}
+
+input CountdownInput {
+    id: String
+    name: String
+    description: String
+    priority: String
+    isFinish: Boolean
+    endDate: LocalDateTime
+    selectionType: String
+    innerSubTasks: [SubTaskInput]
+    tags: [TagInput]
+    workspaces: WorkSpaceInput
+    taskLists: TaskListInput
+    subTask: SubTaskInput
+
+}
+
+input CountdownSpecificationInput {
+   isFinish: Boolean
+
+}

@@ -39,7 +39,6 @@ public class SubTaskServiceImpl implements SubTaskService {
 
     private final SubTaskMapper subTaskMapper = Mappers.getMapper(SubTaskMapper.class);
 
-    
     @Override
     public SubTask insertSubTask(SubTaskDTO subTask) {
         return subTaskRepository.save(subTaskMapper.toEntity(subTask));
@@ -90,6 +89,16 @@ public class SubTaskServiceImpl implements SubTaskService {
 
             if (StringUtils.hasLength(specification.getParentTaskListId())){
                 predicates.add(criteriaBuilder.equal(root.get("parentTaskList").get("id"), specification.getParentTaskListId()));
+            }
+
+            if (specification.getStartDate() != null && specification.getEndDate() != null) {
+                LocalDate startDate = specification.getStartDate().toLocalDate();
+                LocalDate endDate = specification.getEndDate().toLocalDate();
+
+                // Add predicate to filter by startDate and endDate range
+                Predicate startDatePredicate = criteriaBuilder.between(root.get("startDate"), startDate, endDate);
+                Predicate endDatePredicate = criteriaBuilder.between(root.get("endDate"), startDate, endDate);
+                predicates.add(criteriaBuilder.or(startDatePredicate, endDatePredicate));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

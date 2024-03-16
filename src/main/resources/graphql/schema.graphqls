@@ -34,6 +34,9 @@ type Query {
     # Workspace
     getListWorkSpace: [WorkSpace]
 
+    # Countdown
+    getListCountdown(specification: CountdownSpecificationInput): [Countdown]
+
 }
 
 type Mutation {
@@ -90,5 +93,11 @@ type Mutation {
     insertWorkSpace(workSpace: WorkSpaceInput): String
     updateWorkSpace(id: ID!, workSpace: WorkSpaceInput): String
     deleteWorkSpace(id: ID!): String
+
+    # Countdown
+    insertCountdown(countdown: CountdownInput): String
+    updateCountdown(id: ID!, countdown: CountdownInput): String
+    deleteCountdown(id: ID!): String
+    changeStatusCountdown(id: ID!, status: Boolean): String
 
 }

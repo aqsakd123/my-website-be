@@ -25,4 +25,6 @@ input SubTaskInput {
 
 input SubTaskSpecificationInput {
     parentTaskListId: String
+    startDate: LocalDateTime
+    endDate: LocalDateTime
 }
