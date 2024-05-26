@@ -1,0 +1,30 @@
+type SubTask {
+    id: ID!
+    name: String
+    description: String
+    isFinish: Boolean
+    startDate: LocalDateTime
+    endDate: LocalDateTime
+    estimate: Int
+    parentTaskList: TaskList
+    innerTasks: [SubTask]
+
+}
+
+input SubTaskInput {
+    id: String
+    name: String
+    description: String
+    isFinish: Boolean
+    startDate: LocalDateTime
+    endDate: LocalDateTime
+    estimate: Int
+    parentTaskList: TaskListInput
+    innerTasks: [SubTaskInput]
+}
+
+input SubTaskSpecificationInput {
+    parentTaskListId: String
+    startDate: LocalDateTime
+    endDate: LocalDateTime
+}

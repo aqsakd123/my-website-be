@@ -1,0 +1,19 @@
+type Category {
+    id: ID!
+    name: String
+    description: String
+    type: String
+    tag: [Tag]
+    subCategories: [Category]
+    
+}
+
+input CategoryInput {
+    id: String
+    name: String
+    description: String
+    type: String
+    tag: [TagInput]
+    subCategories: [CategoryInput]
+    parentCategoryId: String
+}

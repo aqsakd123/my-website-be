@@ -1,0 +1,26 @@
+type Transaction {
+    id: ID!
+    name: String
+    date: LocalDateTime
+    type: String
+    specificType: String
+    note: String
+    moneyAmount: Int
+}
+
+input TransactionInput {
+    id: String
+    name: String
+    date: LocalDateTime #LocalDateTime
+    type: String
+    specificType: String
+    note: String
+    finance: FinanceInput
+    moneyAmount: Int
+}
+
+input TransactionSpecificationInput {
+    date: LocalDateTime
+    type: String
+    finance: FinanceInput #Finance Parent
+}

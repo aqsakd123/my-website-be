@@ -1,0 +1,23 @@
+type TaskList {
+    id: ID!
+    name: String
+    description: String
+    icon: String
+    priority: String
+    subTasks: [SubTask]
+    workspace: WorkSpace
+}
+
+input TaskListInput {
+    id: String
+    name: String
+    description: String
+    icon: String
+    priority: String
+    subTasks: [SubTaskInput]
+    workspace: WorkSpaceInput
+}
+
+input TaskListSpecificationInput {
+    workspaceId: String
+}

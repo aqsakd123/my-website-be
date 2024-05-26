@@ -1,5 +1,6 @@
 package com.example.my_website_pro.Config;
 
+import com.example.my_website_pro.Entity.DTO.RoleDTO;
 import com.example.my_website_pro.Entity.DTO.UserDTO;
 import com.example.my_website_pro.Entity.Role;
 import com.example.my_website_pro.Service.AuthenticationService;
@@ -34,15 +35,15 @@ public class UserAuthenticationProvider {
     public String createToken(String login, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(login);
 
-        List<String> role = new ArrayList<>();
+        List<Long> role = new ArrayList<>();
         roles.forEach((item) -> {
-            role.add(item.getCode());
+            role.add(item.getId());
         });
 
         claims.put("role", role);
 
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 10*1000); // 1 hour
+        Date expiration = new Date(now.getTime() + 60*60*1000); // 1 hour
 
         return Jwts.builder()
                 .setClaims(claims)

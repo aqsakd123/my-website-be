@@ -1,0 +1,24 @@
+type Tag {
+    id: ID!
+    name: String
+    description: String
+    color: String
+    status: Int
+    type: String
+    icon: String
+}
+
+input TagInput {
+    id: String
+    name: String
+    description: String
+    color: String
+    status: Int
+    type: String
+    icon: String
+}
+
+input TagSpecificationInput {
+    name: String
+    type: String!
+}

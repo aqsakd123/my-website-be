@@ -1,0 +1,19 @@
+type WorkSpace {
+    id: ID!
+    name: String
+    description: String
+    startDate: LocalDateTime
+    endDate: LocalDateTime
+    taskList: [TaskList]
+    
+}
+
+input WorkSpaceInput {
+    id: String
+    name: String
+    description: String
+    startDate: LocalDateTime
+    endDate: LocalDateTime
+    taskList: [TaskListInput]
+    
+}

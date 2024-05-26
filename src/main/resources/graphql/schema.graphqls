@@ -1,0 +1,103 @@
+scalar BigDecimal
+scalar LocalDateTime
+
+type Query {
+    # Memo
+    getDetailMemo(id: ID!): Memo
+    getListMemo(specification: MemoSpecificationInput): [Memo]
+    getPageMemo(specification: MemoSpecificationInput): [Memo]
+
+    # Tag
+    getDetailTag(id: ID!): Tag
+    getListTag(specification: TagSpecificationInput): [Tag]
+    getPageTag(specification: TagSpecificationInput): [Tag]
+    countTagsByFilter(specification: TagSpecificationInput): Int
+
+    # Award Management
+    getDetailAward(id: ID!): Award
+    getListAward: [Award]
+
+    # Finance Management
+    getDetailFinance(id: ID!): Finance
+    getListFinance: [Finance]
+
+    # Transaction
+    getDetailTransaction(id: ID!): Transaction
+    getListTransaction(specification: TransactionSpecificationInput): [Transaction]
+
+    # Task List
+    getListTaskList(specification: TaskListSpecificationInput): [TaskList]
+
+    # SubTask
+    getListSubTask(specification: SubTaskSpecificationInput): [SubTask]
+
+    # Workspace
+    getListWorkSpace: [WorkSpace]
+
+    # Countdown
+    getListCountdown(specification: CountdownSpecificationInput): [Countdown]
+
+}
+
+type Mutation {
+    # Memo
+    insertMemo(memo: MemoInput): String
+    updateMemo(id: ID!, memo: MemoInput): String
+    deleteMemo(id: ID!): String
+    changeStatusMemo(id: ID!, status: Int): String
+
+    # Tags
+    insertTag(tag: TagInput): String
+    updateTag(id: ID!, tag: TagInput): String
+    deleteTag(id: ID!): String
+    changeStatusTag(id: ID!, status: Int): String
+    deleteAllTagsByFilter(specification: TagSpecificationInput): String
+
+    # Award Management
+    insertAward(award: AwardInput): String
+    updateAward(id: ID!, award: AwardInput): String
+    deleteAward(id: ID!): String
+
+    # Finance Management
+    insertFinance(finance: FinanceInput): String
+    updateFinance(id: ID!, finance: FinanceInput): String
+    deleteFinance(id: ID!): String
+
+    # Transaction
+    insertTransaction(transaction: TransactionInput): String
+    updateTransaction(id: ID!, transaction: TransactionInput): String
+    deleteTransaction(id: ID!): String
+
+    # Category
+    insertCategory(category: CategoryInput): String
+    updateCategory(id: ID!, category: CategoryInput): String
+    deleteCategory(id: ID!): String
+
+    #Task List
+    insertTaskList(taskList: TaskListInput): String
+    updateTaskList(id: ID!, taskList: TaskListInput): String
+    deleteTaskList(id: ID!): String
+
+    #SubTask
+    insertSubTask(subTask: SubTaskInput): String
+    updateSubTask(id: ID!, subTask: SubTaskInput): String
+    deleteSubTask(id: ID!): String
+    changeStatusSubTask(id: String!, status: Boolean!): String
+
+    # QuesAndAns
+    insertQuesAndAns(quesAndAns: QuesAndAnsInput): String
+    updateQuesAndAns(id: ID!, quesAndAns: QuesAndAnsInput): String
+    deleteQuesAndAns(id: ID!): String
+
+    # Workspace
+    insertWorkSpace(workSpace: WorkSpaceInput): String
+    updateWorkSpace(id: ID!, workSpace: WorkSpaceInput): String
+    deleteWorkSpace(id: ID!): String
+
+    # Countdown
+    insertCountdown(countdown: CountdownInput): String
+    updateCountdown(id: ID!, countdown: CountdownInput): String
+    deleteCountdown(id: ID!): String
+    changeStatusCountdown(id: ID!, status: Boolean): String
+
+}

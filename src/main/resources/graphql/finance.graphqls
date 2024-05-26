@@ -1,0 +1,18 @@
+type Finance {
+    id: ID!
+    name: String
+    initialAmount: Int
+    totalSum: BigDecimal
+    color: String
+    icon: String
+    description: String
+}
+
+input FinanceInput {
+    id: String
+    name: String
+    initialAmount: Int
+    color: String
+    icon: String
+    description: String
+}

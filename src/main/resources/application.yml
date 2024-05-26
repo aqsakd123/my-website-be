@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/resume_pro
-    username: postgres
-    password: abcabc1234
+    url: jdbc:postgresql://192.168.100.3:5332/resume_pro
+    username: user
+    password: password
     hikari:
       connection-timeout: 60000
       maximum-pool-size: 100
